@@ -2,10 +2,20 @@ import { Product } from '../models/';
 
 export const ProductService =  {
   async getProductsList() {
-    return await Product.findAll();
+    try {
+      return await Product.findAll();
+    } catch (err) {
+      console.error('Sequelize ERROR in ProductService getProductsList() Product.findAll(): ', err);
+      throw 'Something went wrong. Try again later.';
+    }
   },
 
   async getProduct(id: number) {
-    return await Product.findByPk(id);
+    try {
+      return await Product.findByPk(id);
+    } catch (err) {
+      console.error('Sequelize ERROR in ProductService getProduct() Product.findAll(): ', err);
+      throw 'Something went wrong. Try again later.';
+    }
   },
 };
