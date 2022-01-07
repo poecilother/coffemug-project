@@ -1,8 +1,8 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 
-export default (sequelize: Sequelize) => {
-  class Product extends Model {};
-  
+class Product extends Model {};
+
+export function ProductModel(sequelize: Sequelize) {
   Product.init({
     id: {
       type: DataTypes.INTEGER,
@@ -18,14 +18,11 @@ export default (sequelize: Sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    updateDate: {
-      type: DataTypes.DATE,
-    }
   }, {
     modelName: 'Product',
     tableName: 'product',
-    timestamps: false,
+    createdAt: false,
+    updatedAt: 'updateDate',
     sequelize
   });
-};
-
+}
