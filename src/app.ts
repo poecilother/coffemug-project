@@ -1,15 +1,13 @@
 import 'dotenv/config';
 
 import express from "express";
-
-const app = express();
-
 import routes from './routes';
-import database from './configs/sequelize';
+import sequelizeConnection from './configs/sequelize';
 
 const port = process.env.PORT;
+const app = express();
 
-database.connect();
+sequelizeConnection.connect();
 
 app.use(express.json());
 app.use('/', routes);
