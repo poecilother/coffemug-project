@@ -5,7 +5,11 @@ import express from "express";
 const app = express();
 
 import routes from './routes';
+import database from './configs/sequelize';
+
 const port = process.env.PORT;
+
+database.connect();
 
 app.use(express.json());
 app.use('/', routes);
