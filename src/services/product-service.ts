@@ -46,4 +46,13 @@ export const ProductService =  {
       throw restUtils.responseMessage.error;
     }
   },
+
+  async deleteProduct(id: number) {
+    try {
+      return await Product.destroy({ where: {id} });
+    } catch (err) {
+      console.error('Sequelize ERROR in ProductService deleteProduct() Product.destroy(): ', err);
+      throw restUtils.responseMessage.error;
+    }
+  },
 };

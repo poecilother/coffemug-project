@@ -11,4 +11,6 @@ router.post('/', ProductMiddleware.validateProductData, ProductController.create
 
 router.put('/', ProductMiddleware.validateProductId, ProductMiddleware.validateProductData, ProductController.updateProduct);
 
+router.delete('/:id', ProductMiddleware.validateProductId, ProductController.deleteProduct);
+
 export default router;

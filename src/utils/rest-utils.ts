@@ -14,6 +14,9 @@ export const restUtils = {
   },
 
   responseMessage: {
+    deletedRows: (rowsQuantity: number) => {
+      return `Deleted ${ rowsQuantity } row${ rowsQuantity === 1 ? '' : 's' }.`;
+    },
     error: 'Something went wrong. Try again later.',
     invalidValue: (param: string, validValue?: string) => {
       return `${ capitalize(param) } has invalid value.${ validValue ? ` Expected ${ validValue }.` : '' }`;

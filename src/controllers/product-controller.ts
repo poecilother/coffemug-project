@@ -38,5 +38,14 @@ export const ProductController = {
     } catch (err) {
       return res.status(restUtils.responseStatus.INTERNAL_SERVER).send(err);
     }
-  }
+  },
+
+  async deleteProduct(req: Request, res: Response) {
+    try {
+      const deletedProduct = await ProductService.deleteProduct(res.locals.productId);
+      return res.status(restUtils.responseStatus.OK).send(restUtils.responseMessage.deletedRows(deletedProduct));
+    } catch (err) {
+      return res.status(restUtils.responseStatus.INTERNAL_SERVER).send(err);
+    }
+  },
 }

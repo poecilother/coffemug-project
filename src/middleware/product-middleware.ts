@@ -5,7 +5,7 @@ import { ProductValidation } from "../utils/product-validation";
 
 export const ProductMiddleware = {
   async validateProductId(req: Request, res: Response, next: NextFunction) {
-    if (req.method === 'GET') {
+    if (req.method === 'GET' || req.method === 'DELETE') {
       res.locals.productId = parseInt(req.params.id);
     } else {
       res.locals.productId = parseInt(req.body.product.id);
