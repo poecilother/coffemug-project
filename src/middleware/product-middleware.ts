@@ -4,14 +4,31 @@ import { restUtils } from "../utils/rest-utils";
 import { ProductValidation } from "../utils/product-validation";
 
 export const ProductMiddleware = {
-  validateGetProduct(req: Request, res: Response, next: NextFunction) {
-    res.locals.productId = parseInt(req.params.id);
-    if (Object.is(res.locals.productId, NaN)) return res.status(restUtils.responseStatus.BAD_REQUEST).send(restUtils.responseMessage.invalidValue('id', 'number'));
+  async validateProductId(req: Request, res: Response, next: NextFunction) {
+    if (req.method === 'GET') {
+      res.locals.productId = parseInt(req.params.id);
+    } else {
+      res.locals.productId = parseInt(req.body.product.id);
+    }
+    
+    if (Object.is(res.locals.productId, NaN)) {
+      return res.status(restUtils.responseStatus.BAD_REQUEST).send(restUtils.responseMessage.invalidValue('id', 'number'));
+    }
+
+    if (req.method !== 'GET') {
+      try {
+        if (!await ProductService.getProduct(res.locals.productId)) {
+          return res.status(restUtils.responseStatus.NOT_FOUND).send(restUtils.responseMessage.notFound('product'));
+        }
+      } catch (err) {
+        return res.status(restUtils.responseStatus.INTERNAL_SERVER).send(err);
+      }
+    }
 
     next();
   },
 
-  async validateCreateProduct(req: Request, res: Response, next: NextFunction) {
+  async validateProductData(req: Request, res: Response, next: NextFunction) {
     const invalidFields = [];
     let validateHelper: string;
 

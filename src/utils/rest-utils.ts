@@ -24,11 +24,17 @@ export const restUtils = {
     missingParam: (param: string) => {
       return `${ capitalize(param) } is missing.`;
     },
-    wrongCharactersAmount: (param: string, amountType: string, amountLimit: number) => {
-      return `${ capitalize(param) } can has ${ amountType } ${ amountLimit } character${ amountLimit === 1 ? '' : 's' }.`;
+    notFound: (resource: string) => {
+      return `${ capitalize(resource) } not found.`;
+    },
+    updatedRows: (rowsQuantity: number) => {
+      return `Updated ${ rowsQuantity } row${ rowsQuantity === 1 ? '' : 's' }.`;
     },
     valueAlreadyInUse: (param: string) => {
       return `${ capitalize(param) } is already in use.`;
+    },
+    wrongCharactersAmount: (param: string, amountType: string, amountLimit: number) => {
+      return `${ capitalize(param) } can has ${ amountType } ${ amountLimit } character${ amountLimit === 1 ? '' : 's' }.`;
     },
   },
 };

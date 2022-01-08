@@ -20,6 +20,15 @@ export const ProductService =  {
     }
   },
 
+  async getProductByName(name: string) {
+    try {
+      return await Product.findOne({ where: { name } });
+    } catch (err) {
+      console.error('Sequelize ERROR in ProductService getProductByName() Product.findOne(): ', err);
+      throw restUtils.responseMessage.error;
+    }
+  },
+
   async createProduct(name: string, price: number) {
     try {
       return await Product.create({ name, price });
@@ -29,11 +38,11 @@ export const ProductService =  {
     };
   },
 
-  async getProductByName(name: string) {
+  async updateProduct(id: number, name: string, price: number) {
     try {
-      return await Product.findOne({ where: { name } });
+      return await Product.update({ name, price }, { where: { id } });
     } catch (err) {
-      console.error('Sequelize ERROR in ProductService getProductByName() Product.findOne(): ', err);
+      console.error('Sequelize ERROR in ProductService updateProduct() Product.update(): ', err);
       throw restUtils.responseMessage.error;
     }
   },
