@@ -5,7 +5,7 @@ import routes from './routes';
 import { connectToDatabase } from './models';
 
 export async function app(app: Application) {
-  const port = process.env.PORT;
+  const port = process.env.PORT || 4000;
 
   await connectToDatabase();
   
