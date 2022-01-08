@@ -12,17 +12,25 @@ export function ProductModel(sequelize: Sequelize) {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     price: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    updateDate: {
+      type: DataTypes.DATE,
+    }
   }, {
+    sequelize,
     modelName: 'Product',
     tableName: 'product',
-    createdAt: false,
-    updatedAt: 'updateDate',
-    sequelize
+    timestamps: false,
+    hooks: {
+      beforeUpdate: async (record, options) => {
+        record.setDataValue('updateDate', new Date());
+      }
+    }
   });
 }
